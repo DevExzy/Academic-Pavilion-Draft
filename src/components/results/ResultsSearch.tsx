@@ -25,7 +25,6 @@ export interface SearchFilters {
   level: string;
   semester: string;
   academicYear: string;
-  searchType: "individual" | "department" | "level";
 }
 
 interface ResultsSearchProps {
