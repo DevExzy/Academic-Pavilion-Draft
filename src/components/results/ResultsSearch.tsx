@@ -56,7 +56,6 @@ export function ResultsSearch({ onSearch }: ResultsSearchProps) {
       level: "all",
       semester: "all",
       academicYear: "all",
-      searchType: "individual",
     };
     setFilters(resetFilters);
     onSearch(resetFilters);
