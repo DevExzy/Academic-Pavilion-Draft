@@ -69,7 +69,7 @@ export function ResultsSearch({ onSearch }: ResultsSearchProps) {
           Search Results
         </CardTitle>
         <CardDescription>
-          Search for student results by individual, department, or level
+          Search for student results and filter by various criteria
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
