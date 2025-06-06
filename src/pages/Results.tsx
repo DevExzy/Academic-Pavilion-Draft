@@ -34,24 +34,27 @@ export default function Results() {
     }
 
     // Filter by department
-    if (filters.department && filters.department !== 'all') {
-      filtered = filtered.filter((result) => result.department === filters.department);
+    if (filters.department && filters.department !== "all") {
+      filtered = filtered.filter(
+        (result) => result.department === filters.department,
+      );
     }
 
     // Filter by level
-    if (filters.level && filters.level !== 'all') {
+    if (filters.level && filters.level !== "all") {
       filtered = filtered.filter((result) => result.level === filters.level);
     }
 
     // Filter by semester
-    if (filters.semester && filters.semester !== 'all') {
-      filtered = filtered.filter((result) => result.semester === filters.semester);
+    if (filters.semester && filters.semester !== "all") {
+      filtered = filtered.filter(
+        (result) => result.semester === filters.semester,
+      );
     }
 
     // Filter by academic year
-    if (filters.academicYear && filters.academicYear !== 'all') {
-      filtered = filtered.filter((result) => result.academicYear === filters.academicYear);
-    }
+    if (filters.academicYear && filters.academicYear !== "all") {
+      filtered = filtered.filter(
         (result) => result.academicYear === filters.academicYear,
       );
     }
