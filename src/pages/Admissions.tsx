@@ -45,8 +45,8 @@ const getStatusBadge = (status: Admission["status"]) => {
 export default function Admissions() {
   const [admissions, setAdmissions] = useState<Admission[]>(mockAdmissions);
   const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState<string>("");
-  const [departmentFilter, setDepartmentFilter] = useState<string>("");
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [departmentFilter, setDepartmentFilter] = useState<string>("all");
 
   const filteredAdmissions = admissions.filter((admission) => {
     const matchesSearch =

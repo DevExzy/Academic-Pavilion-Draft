@@ -70,9 +70,9 @@ export default function AcademicScholar() {
   const [scholars, setScholars] =
     useState<AcademicScholar[]>(mockAcademicScholars);
   const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState<string>("");
-  const [typeFilter, setTypeFilter] = useState<string>("");
-  const [departmentFilter, setDepartmentFilter] = useState<string>("");
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [typeFilter, setTypeFilter] = useState<string>("all");
+  const [departmentFilter, setDepartmentFilter] = useState<string>("all");
 
   const filteredScholars = scholars.filter((scholar) => {
     const matchesSearch =

@@ -86,9 +86,9 @@ const nigerianStates = [
 export default function NYSC() {
   const [nyscRecords, setNyscRecords] = useState<NYSCRecord[]>(mockNYSCRecords);
   const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState<string>("");
-  const [stateFilter, setStateFilter] = useState<string>("");
-  const [batchYearFilter, setBatchYearFilter] = useState<string>("");
+  const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [stateFilter, setStateFilter] = useState<string>("all");
+  const [batchYearFilter, setBatchYearFilter] = useState<string>("all");
 
   const filteredRecords = nyscRecords.filter((record) => {
     const matchesSearch =

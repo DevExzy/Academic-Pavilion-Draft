@@ -96,7 +96,7 @@ export default function ManageRoles() {
   const [roles, setRoles] = useState<UserRole[]>(mockUserRoles);
   const [searchTerm, setSearchTerm] = useState("");
   const [roleSearchTerm, setRoleSearchTerm] = useState("");
-  const [selectedRole, setSelectedRole] = useState<string>("");
+  const [selectedRole, setSelectedRole] = useState<string>("all");
   const [newRoleName, setNewRoleName] = useState("");
   const [selectedPermissions, setSelectedPermissions] = useState<string[]>([]);
   const [isCreateRoleOpen, setIsCreateRoleOpen] = useState(false);
