@@ -80,14 +80,21 @@ export default function AcademicScholar() {
         .toLowerCase()
         .includes(searchTerm.toLowerCase());
 
-    const matchesStatus = !statusFilter || scholar.status === statusFilter;
-    const matchesType = !typeFilter || scholar.scholarshipType === typeFilter;
+    const matchesStatus =
+      !statusFilter ||
+      statusFilter === "all" ||
+      scholar.status === statusFilter;
+    const matchesType =
+      !typeFilter ||
+      typeFilter === "all" ||
+      scholar.scholarshipType === typeFilter;
     const matchesDepartment =
-      !departmentFilter || scholar.department === departmentFilter;
+      !departmentFilter ||
+      departmentFilter === "all" ||
+      scholar.department === departmentFilter;
 
     return matchesSearch && matchesStatus && matchesType && matchesDepartment;
   });
-
   const handleSuspendScholarship = (scholar: AcademicScholar) => {
     const updatedScholars = scholars.map((s) =>
       s.id === scholar.id ? { ...s, status: "suspended" as const } : s,
@@ -172,7 +179,7 @@ export default function AcademicScholar() {
             <SelectValue placeholder="All Status" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Status</SelectItem>
+            <SelectItem value="all">All Status</SelectItem>
             <SelectItem value="active">Active</SelectItem>
             <SelectItem value="suspended">Suspended</SelectItem>
             <SelectItem value="completed">Completed</SelectItem>
@@ -183,7 +190,7 @@ export default function AcademicScholar() {
             <SelectValue placeholder="Scholarship Type" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Types</SelectItem>
+            <SelectItem value="all">All Types</SelectItem>
             {scholarshipTypes.map((type) => (
               <SelectItem key={type} value={type}>
                 {type}
@@ -196,7 +203,7 @@ export default function AcademicScholar() {
             <SelectValue placeholder="All Departments" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Departments</SelectItem>
+            <SelectItem value="all">All Departments</SelectItem>
             {departments.map((dept) => (
               <SelectItem key={dept} value={dept}>
                 {dept}

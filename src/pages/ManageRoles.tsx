@@ -294,7 +294,7 @@ export default function ManageRoles() {
                 <SelectValue placeholder="Filter by role" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Roles</SelectItem>
+                <SelectItem value="all">All Roles</SelectItem>
                 {roles.map((role) => (
                   <SelectItem key={role.id} value={role.id}>
                     {role.name}

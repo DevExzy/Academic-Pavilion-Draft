@@ -35,10 +35,10 @@ interface ResultsSearchProps {
 export function ResultsSearch({ onSearch }: ResultsSearchProps) {
   const [filters, setFilters] = useState<SearchFilters>({
     searchTerm: "",
-    department: "",
-    level: "",
-    semester: "",
-    academicYear: "",
+    department: "all",
+    level: "all",
+    semester: "all",
+    academicYear: "all",
     searchType: "individual",
   });
 
@@ -54,10 +54,10 @@ export function ResultsSearch({ onSearch }: ResultsSearchProps) {
   const handleReset = () => {
     const resetFilters: SearchFilters = {
       searchTerm: "",
-      department: "",
-      level: "",
-      semester: "",
-      academicYear: "",
+      department: "all",
+      level: "all",
+      semester: "all",
+      academicYear: "all",
       searchType: "individual",
     };
     setFilters(resetFilters);
@@ -124,7 +124,7 @@ export function ResultsSearch({ onSearch }: ResultsSearchProps) {
                 <SelectValue placeholder="Select department" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Departments</SelectItem>
+                <SelectItem value="all">All Departments</SelectItem>
                 {departments.map((dept) => (
                   <SelectItem key={dept} value={dept}>
                     {dept}
@@ -144,7 +144,7 @@ export function ResultsSearch({ onSearch }: ResultsSearchProps) {
                 <SelectValue placeholder="Select level" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Levels</SelectItem>
+                <SelectItem value="all">All Levels</SelectItem>
                 {levels.map((level) => (
                   <SelectItem key={level} value={level}>
                     {level} Level
@@ -164,7 +164,7 @@ export function ResultsSearch({ onSearch }: ResultsSearchProps) {
                 <SelectValue placeholder="Select semester" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Semesters</SelectItem>
+                <SelectItem value="all">All Semesters</SelectItem>
                 {semesters.map((semester) => (
                   <SelectItem key={semester} value={semester}>
                     {semester} Semester
@@ -186,7 +186,7 @@ export function ResultsSearch({ onSearch }: ResultsSearchProps) {
                 <SelectValue placeholder="Select academic year" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Years</SelectItem>
+                <SelectItem value="all">All Years</SelectItem>
                 {academicYears.map((year) => (
                   <SelectItem key={year} value={year}>
                     {year}

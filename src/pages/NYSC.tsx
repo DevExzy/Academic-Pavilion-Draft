@@ -96,14 +96,17 @@ export default function NYSC() {
         .toLowerCase()
         .includes(searchTerm.toLowerCase());
 
-    const matchesStatus = !statusFilter || record.status === statusFilter;
-    const matchesState = !stateFilter || record.state === stateFilter;
+    const matchesStatus =
+      !statusFilter || statusFilter === "all" || record.status === statusFilter;
+    const matchesState =
+      !stateFilter || stateFilter === "all" || record.state === stateFilter;
     const matchesBatchYear =
-      !batchYearFilter || record.batchYear === batchYearFilter;
+      !batchYearFilter ||
+      batchYearFilter === "all" ||
+      record.batchYear === batchYearFilter;
 
     return matchesSearch && matchesStatus && matchesState && matchesBatchYear;
   });
-
   const mobilizedCount = nyscRecords.filter(
     (r) => r.status === "mobilized",
   ).length;
@@ -178,7 +181,7 @@ export default function NYSC() {
             <SelectValue placeholder="All Status" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Status</SelectItem>
+            <SelectItem value="all">All Status</SelectItem>
             <SelectItem value="mobilized">Mobilized</SelectItem>
             <SelectItem value="serving">Serving</SelectItem>
             <SelectItem value="completed">Completed</SelectItem>
@@ -190,7 +193,7 @@ export default function NYSC() {
             <SelectValue placeholder="All States" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All States</SelectItem>
+            <SelectItem value="all">All States</SelectItem>
             {nigerianStates.map((state) => (
               <SelectItem key={state} value={state}>
                 {state}
@@ -203,7 +206,7 @@ export default function NYSC() {
             <SelectValue placeholder="Batch Year" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Years</SelectItem>
+            <SelectItem value="all">All Years</SelectItem>
             {batchYears.map((year) => (
               <SelectItem key={year} value={year}>
                 {year}

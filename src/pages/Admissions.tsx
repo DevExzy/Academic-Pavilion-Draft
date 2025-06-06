@@ -54,13 +54,17 @@ export default function Admissions() {
         .toLowerCase()
         .includes(searchTerm.toLowerCase());
 
-    const matchesStatus = !statusFilter || admission.status === statusFilter;
+    const matchesStatus =
+      !statusFilter ||
+      statusFilter === "all" ||
+      admission.status === statusFilter;
     const matchesDepartment =
-      !departmentFilter || admission.department === departmentFilter;
+      !departmentFilter ||
+      departmentFilter === "all" ||
+      admission.department === departmentFilter;
 
     return matchesSearch && matchesStatus && matchesDepartment;
   });
-
   const handleApprove = (admission: Admission) => {
     const updatedAdmissions = admissions.map((a) =>
       a.id === admission.id
@@ -140,7 +144,7 @@ export default function Admissions() {
             <SelectValue placeholder="All Status" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Status</SelectItem>
+            <SelectItem value="all">All Status</SelectItem>
             <SelectItem value="pending">Pending</SelectItem>
             <SelectItem value="admitted">Admitted</SelectItem>
             <SelectItem value="rejected">Rejected</SelectItem>
@@ -151,7 +155,7 @@ export default function Admissions() {
             <SelectValue placeholder="All Departments" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Departments</SelectItem>
+            <SelectItem value="all">All Departments</SelectItem>
             {departments.map((dept) => (
               <SelectItem key={dept} value={dept}>
                 {dept}
