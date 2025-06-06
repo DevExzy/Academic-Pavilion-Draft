@@ -63,21 +63,7 @@ export default function Dashboard() {
         />
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <StatsCard
-          title="Scholarships"
-          value={stats.totalScholarships}
-          description="Active scholarship recipients"
-          icon={Award}
-          trend={{ value: 15, isPositive: true }}
-        />
-        <StatsCard
-          title="Revenue"
-          value={`₦${(stats.totalRevenue / 1000000).toFixed(1)}M`}
-          description="Total revenue this year"
-          icon={DollarSign}
-          trend={{ value: 18, isPositive: true }}
-        />
+      <div className="grid gap-4 md:grid-cols-2">
         <StatsCard
           title="New Enrollments"
           value={stats.newEnrollments}
