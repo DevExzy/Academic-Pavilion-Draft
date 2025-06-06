@@ -94,10 +94,6 @@ export default function Dashboard() {
               Upload Results
             </Button>
             <Button variant="outline" className="justify-start">
-              <Award className="mr-2 h-4 w-4" />
-              Award Scholarship
-            </Button>
-            <Button variant="outline" className="justify-start">
               <Calendar className="mr-2 h-4 w-4" />
               Schedule Event
             </Button>
