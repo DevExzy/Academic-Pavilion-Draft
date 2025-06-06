@@ -129,9 +129,16 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             <SidebarMenuItem>
               <SidebarMenuButton size="lg" asChild>
                 <a href="/">
-                  <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                    <GraduationCap className="size-4" />
-                  </div>
+                  <div
+                    className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground"
+                    style={{
+                      backgroundImage:
+                        "url(https://cdn.builder.io/api/v1/image/assets%2F70b4271b41d8441b95309f9211de826a%2Fdfa6c80fd551430ca42cb59abfd8e158)",
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "center",
+                      backgroundSize: "cover",
+                    }}
+                  />
                   <div className="grid flex-1 text-left text-sm leading-tight">
                     <span className="truncate font-semibold">
                       University Portal
