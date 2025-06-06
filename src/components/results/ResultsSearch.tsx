@@ -78,37 +78,10 @@ export function ResultsSearch({ onSearch }: ResultsSearchProps) {
       <CardContent className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="searchType">Search Type</Label>
-            <Select
-              value={filters.searchType}
-              onValueChange={(value: SearchFilters["searchType"]) =>
-                handleFilterChange("searchType", value)
-              }
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select search type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="individual">Individual Student</SelectItem>
-                <SelectItem value="department">By Department</SelectItem>
-                <SelectItem value="level">By Level</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="searchTerm">
-              {filters.searchType === "individual"
-                ? "Student Name/ID"
-                : "Search Term"}
-            </Label>
+            <Label htmlFor="searchTerm">Student Name/ID</Label>
             <Input
               id="searchTerm"
-              placeholder={
-                filters.searchType === "individual"
-                  ? "Enter student name or ID..."
-                  : "Enter search term..."
-              }
+              placeholder="Enter student name or ID..."
               value={filters.searchTerm}
               onChange={(e) => handleFilterChange("searchTerm", e.target.value)}
             />
