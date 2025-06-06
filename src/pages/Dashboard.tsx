@@ -13,8 +13,6 @@ import {
   GraduationCap,
   AlertTriangle,
   UserPlus,
-  Award,
-  DollarSign,
   TrendingUp,
   Calendar,
 } from "lucide-react";
