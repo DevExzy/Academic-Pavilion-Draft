@@ -38,7 +38,6 @@ export function ResultsSearch({ onSearch }: ResultsSearchProps) {
     level: "all",
     semester: "all",
     academicYear: "all",
-    searchType: "individual",
   });
 
   const handleFilterChange = (key: keyof SearchFilters, value: string) => {
