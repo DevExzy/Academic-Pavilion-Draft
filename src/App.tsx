@@ -3,7 +3,15 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
+import { DashboardLayout } from "./components/layout/DashboardLayout";
+import Dashboard from "./pages/Dashboard";
+import Students from "./pages/Students";
+import Results from "./pages/Results";
+import Admissions from "./pages/Admissions";
+import NYSC from "./pages/NYSC";
+import AcademicScholar from "./pages/AcademicScholar";
+import AccountSettings from "./pages/AccountSettings";
+import ManageRoles from "./pages/ManageRoles";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -15,7 +23,70 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route
+            path="/"
+            element={
+              <DashboardLayout>
+                <Dashboard />
+              </DashboardLayout>
+            }
+          />
+          <Route
+            path="/students"
+            element={
+              <DashboardLayout>
+                <Students />
+              </DashboardLayout>
+            }
+          />
+          <Route
+            path="/results"
+            element={
+              <DashboardLayout>
+                <Results />
+              </DashboardLayout>
+            }
+          />
+          <Route
+            path="/admissions"
+            element={
+              <DashboardLayout>
+                <Admissions />
+              </DashboardLayout>
+            }
+          />
+          <Route
+            path="/nysc"
+            element={
+              <DashboardLayout>
+                <NYSC />
+              </DashboardLayout>
+            }
+          />
+          <Route
+            path="/academic-scholar"
+            element={
+              <DashboardLayout>
+                <AcademicScholar />
+              </DashboardLayout>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <DashboardLayout>
+                <AccountSettings />
+              </DashboardLayout>
+            }
+          />
+          <Route
+            path="/roles"
+            element={
+              <DashboardLayout>
+                <ManageRoles />
+              </DashboardLayout>
+            }
+          />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
