@@ -41,6 +41,7 @@ import {
   UserPlus,
   Users,
   Upload,
+  ClipboardList,
   Settings,
   Shield,
   Bell,
@@ -89,7 +90,7 @@ const navigation = [
   {
     title: "Activity Log",
     url: "/activity-log",
-    icon: FileText,
+    icon: ClipboardList,
   },
   {
     title: "Account Settings",
