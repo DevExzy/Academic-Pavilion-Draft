@@ -58,12 +58,17 @@ export default function Admissions() {
         .toLowerCase()
         .includes(searchTerm.toLowerCase());
 
+    const matchesStatus =
+      !statusFilter ||
+      statusFilter === "all" ||
+      admission.status === statusFilter;
+
     const matchesDepartment =
       !departmentFilter ||
       departmentFilter === "all" ||
       admission.department === departmentFilter;
 
-    return isProcessed && matchesSearch && matchesDepartment;
+    return isProcessed && matchesSearch && matchesStatus && matchesDepartment;
   });
   const handleApprove = (admission: Admission) => {
     const updatedAdmissions = admissions.map((a) =>
