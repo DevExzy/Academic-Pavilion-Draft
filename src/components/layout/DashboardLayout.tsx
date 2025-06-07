@@ -40,7 +40,7 @@ import {
   FileText,
   UserPlus,
   Users,
-  Award,
+  Upload,
   Settings,
   Shield,
   Bell,
@@ -82,9 +82,9 @@ const navigation = [
     icon: Users,
   },
   {
-    title: "Academic Scholar",
-    url: "/academic-scholar",
-    icon: Award,
+    title: "Upload",
+    url: "/upload",
+    icon: Upload,
   },
   {
     title: "Account Settings",
