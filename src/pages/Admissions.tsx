@@ -118,17 +118,7 @@ export default function Admissions() {
             className="pl-8"
           />
         </div>
-        <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-[150px]">
-            <SelectValue placeholder="All Status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Status</SelectItem>
-            <SelectItem value="pending">Pending</SelectItem>
-            <SelectItem value="admitted">Admitted</SelectItem>
-            <SelectItem value="rejected">Rejected</SelectItem>
-          </SelectContent>
-        </Select>
+
         <Select value={departmentFilter} onValueChange={setDepartmentFilter}>
           <SelectTrigger className="w-[200px]">
             <SelectValue placeholder="All Departments" />
