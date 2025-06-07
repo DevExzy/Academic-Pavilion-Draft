@@ -24,265 +24,317 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { MoreHorizontal, Search, Eye, Download } from "lucide-react";
-import { mockNYSCRecords, departments } from "@/lib/mock-data";
-import { NYSCRecord } from "@/types";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { MoreHorizontal, Search, Eye } from "lucide-react";
+import { departments } from "@/lib/mock-data";
 
-const getStatusBadge = (status: NYSCRecord["status"]) => {
-  switch (status) {
-    case "mobilized":
-      return <Badge variant="secondary">Mobilized</Badge>;
-    case "serving":
-      return <Badge variant="default">Serving</Badge>;
-    case "completed":
-      return <Badge variant="outline">Completed</Badge>;
-    case "exempted":
-      return <Badge variant="destructive">Exempted</Badge>;
-    default:
-      return <Badge variant="outline">{status}</Badge>;
-  }
-};
+interface NYSCEligibleStudent {
+  id: string;
+  studentId: string;
+  studentName: string;
+  department: string;
+  level: string;
+  cgpa: number;
+  graduationDate?: string;
+  age: number;
+  citizenship: string;
+  isEligible: boolean;
+  eligibilityReason: string;
+}
 
-const nigerianStates = [
-  "Abia",
-  "Adamawa",
-  "Akwa Ibom",
-  "Anambra",
-  "Bauchi",
-  "Bayelsa",
-  "Benue",
-  "Borno",
-  "Cross River",
-  "Delta",
-  "Ebonyi",
-  "Edo",
-  "Ekiti",
-  "Enugu",
-  "Gombe",
-  "Imo",
-  "Jigawa",
-  "Kaduna",
-  "Kano",
-  "Katsina",
-  "Kebbi",
-  "Kogi",
-  "Kwara",
-  "Lagos",
-  "Nasarawa",
-  "Niger",
-  "Ogun",
-  "Ondo",
-  "Osun",
-  "Oyo",
-  "Plateau",
-  "Rivers",
-  "Sokoto",
-  "Taraba",
-  "Yobe",
-  "Zamfara",
-  "FCT",
+const mockNYSCStudents: NYSCEligibleStudent[] = [
+  {
+    id: "1",
+    studentId: "STU001",
+    studentName: "John Doe",
+    department: "Computer Science",
+    level: "400",
+    cgpa: 4.2,
+    graduationDate: "2024-05-15",
+    age: 24,
+    citizenship: "Nigerian",
+    isEligible: true,
+    eligibilityReason: "Meets all requirements",
+  },
+  {
+    id: "2",
+    studentId: "STU002",
+    studentName: "Jane Smith",
+    department: "Engineering",
+    level: "400",
+    cgpa: 3.8,
+    graduationDate: "2024-05-15",
+    age: 23,
+    citizenship: "Nigerian",
+    isEligible: true,
+    eligibilityReason: "Meets all requirements",
+  },
+  {
+    id: "3",
+    studentId: "STU003",
+    studentName: "Mike Johnson",
+    department: "Business Administration",
+    level: "400",
+    cgpa: 3.9,
+    graduationDate: "2024-05-15",
+    age: 31,
+    citizenship: "Nigerian",
+    isEligible: false,
+    eligibilityReason: "Above age limit (30 years)",
+  },
+  {
+    id: "4",
+    studentId: "STU004",
+    studentName: "Sarah Williams",
+    department: "Mathematics",
+    level: "400",
+    cgpa: 2.1,
+    graduationDate: "2024-05-15",
+    age: 25,
+    citizenship: "Nigerian",
+    isEligible: false,
+    eligibilityReason: "CGPA below minimum requirement (2.5)",
+  },
+  {
+    id: "5",
+    studentId: "STU005",
+    studentName: "David Brown",
+    department: "Law",
+    level: "500",
+    cgpa: 4.0,
+    graduationDate: "2024-07-20",
+    age: 26,
+    citizenship: "American",
+    isEligible: false,
+    eligibilityReason: "Non-Nigerian citizen",
+  },
 ];
 
-export default function NYSC() {
-  const [nyscRecords, setNyscRecords] = useState<NYSCRecord[]>(mockNYSCRecords);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState<string>("all");
-  const [stateFilter, setStateFilter] = useState<string>("all");
-  const [batchYearFilter, setBatchYearFilter] = useState<string>("all");
+const getEligibilityBadge = (isEligible: boolean) => {
+  return isEligible ? (
+    <Badge variant="default">Eligible</Badge>
+  ) : (
+    <Badge variant="destructive">Not Eligible</Badge>
+  );
+};
 
-  const filteredRecords = nyscRecords.filter((record) => {
-    const matchesSearch =
-      `${record.studentName} ${record.studentId} ${record.callUpNumber}`
+export default function NYSC() {
+  const [students] = useState<NYSCEligibleStudent[]>(mockNYSCStudents);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [departmentFilter, setDepartmentFilter] = useState<string>("all");
+
+  const eligibleStudents = students.filter((student) => student.isEligible);
+  const notEligibleStudents = students.filter((student) => !student.isEligible);
+
+  const filterStudents = (studentList: NYSCEligibleStudent[]) => {
+    return studentList.filter((student) => {
+      const matchesSearch = `${student.studentName} ${student.studentId}`
         .toLowerCase()
         .includes(searchTerm.toLowerCase());
 
-    const matchesStatus =
-      !statusFilter || statusFilter === "all" || record.status === statusFilter;
-    const matchesState =
-      !stateFilter || stateFilter === "all" || record.state === stateFilter;
-    const matchesBatchYear =
-      !batchYearFilter ||
-      batchYearFilter === "all" ||
-      record.batchYear === batchYearFilter;
+      const matchesDepartment =
+        !departmentFilter ||
+        departmentFilter === "all" ||
+        student.department === departmentFilter;
 
-    return matchesSearch && matchesStatus && matchesState && matchesBatchYear;
-  });
-  const mobilizedCount = nyscRecords.filter(
-    (r) => r.status === "mobilized",
-  ).length;
-  const servingCount = nyscRecords.filter((r) => r.status === "serving").length;
-  const completedCount = nyscRecords.filter(
-    (r) => r.status === "completed",
-  ).length;
-  const exemptedCount = nyscRecords.filter(
-    (r) => r.status === "exempted",
-  ).length;
+      return matchesSearch && matchesDepartment;
+    });
+  };
 
-  const batchYears = Array.from(
-    new Set(nyscRecords.map((r) => r.batchYear)),
-  ).sort();
+  const filteredEligibleStudents = filterStudents(eligibleStudents);
+  const filteredNotEligibleStudents = filterStudents(notEligibleStudents);
+
+  const StudentTable = ({
+    students,
+    showEligibilityReason = false,
+  }: {
+    students: NYSCEligibleStudent[];
+    showEligibilityReason?: boolean;
+  }) => (
+    <div className="rounded-md border">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Student</TableHead>
+            <TableHead>Department</TableHead>
+            <TableHead>Level</TableHead>
+            <TableHead>CGPA</TableHead>
+            <TableHead>Age</TableHead>
+            <TableHead>Graduation Date</TableHead>
+            <TableHead>Eligibility Status</TableHead>
+            {showEligibilityReason && <TableHead>Reason</TableHead>}
+            <TableHead className="w-[70px]">Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {students.length === 0 ? (
+            <TableRow>
+              <TableCell
+                colSpan={showEligibilityReason ? 9 : 8}
+                className="text-center text-muted-foreground"
+              >
+                No students found
+              </TableCell>
+            </TableRow>
+          ) : (
+            students.map((student) => (
+              <TableRow key={student.id}>
+                <TableCell>
+                  <div>
+                    <div className="font-medium">{student.studentName}</div>
+                    <div className="text-sm text-muted-foreground">
+                      {student.studentId}
+                    </div>
+                  </div>
+                </TableCell>
+                <TableCell>{student.department}</TableCell>
+                <TableCell>{student.level}</TableCell>
+                <TableCell>
+                  <div className="font-medium">{student.cgpa.toFixed(2)}</div>
+                </TableCell>
+                <TableCell>{student.age} years</TableCell>
+                <TableCell>
+                  {student.graduationDate
+                    ? new Date(student.graduationDate).toLocaleDateString()
+                    : "N/A"}
+                </TableCell>
+                <TableCell>{getEligibilityBadge(student.isEligible)}</TableCell>
+                {showEligibilityReason && (
+                  <TableCell>
+                    <div className="text-sm text-muted-foreground">
+                      {student.eligibilityReason}
+                    </div>
+                  </TableCell>
+                )}
+                <TableCell>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" className="h-8 w-8 p-0">
+                        <span className="sr-only">Open menu</span>
+                        <MoreHorizontal className="h-4 w-4" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                      <DropdownMenuItem>
+                        <Eye className="mr-2 h-4 w-4" />
+                        View Details
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </TableCell>
+              </TableRow>
+            ))
+          )}
+        </TableBody>
+      </Table>
+    </div>
+  );
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">NYSC Records</h1>
+        <h1 className="text-3xl font-bold tracking-tight">NYSC Eligibility</h1>
         <p className="text-muted-foreground">
-          Manage National Youth Service Corps records
+          View students eligible and not eligible for National Youth Service
+          Corps
         </p>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-4 md:grid-cols-4">
-        <div className="rounded-lg border p-4">
-          <div className="text-2xl font-bold text-blue-600">
-            {mobilizedCount}
-          </div>
-          <p className="text-sm text-muted-foreground">Mobilized</p>
-        </div>
+      <div className="grid gap-4 md:grid-cols-3">
         <div className="rounded-lg border p-4">
           <div className="text-2xl font-bold text-green-600">
-            {servingCount}
+            {eligibleStudents.length}
           </div>
-          <p className="text-sm text-muted-foreground">Currently Serving</p>
+          <p className="text-sm text-muted-foreground">Eligible Students</p>
         </div>
         <div className="rounded-lg border p-4">
-          <div className="text-2xl font-bold text-gray-600">
-            {completedCount}
+          <div className="text-2xl font-bold text-red-600">
+            {notEligibleStudents.length}
           </div>
-          <p className="text-sm text-muted-foreground">Completed Service</p>
+          <p className="text-sm text-muted-foreground">Not Eligible Students</p>
         </div>
         <div className="rounded-lg border p-4">
-          <div className="text-2xl font-bold text-orange-600">
-            {exemptedCount}
+          <div className="text-2xl font-bold text-blue-600">
+            {students.length}
           </div>
-          <p className="text-sm text-muted-foreground">Exempted</p>
+          <p className="text-sm text-muted-foreground">
+            Total Students Reviewed
+          </p>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="flex items-center gap-4 flex-wrap">
+      <div className="flex items-center gap-4">
         <div className="relative flex-1 max-w-sm">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search NYSC records..."
+            placeholder="Search students..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-8"
           />
         </div>
-        <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-[150px]">
-            <SelectValue placeholder="All Status" />
+        <Select value={departmentFilter} onValueChange={setDepartmentFilter}>
+          <SelectTrigger className="w-[200px]">
+            <SelectValue placeholder="All Departments" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Status</SelectItem>
-            <SelectItem value="mobilized">Mobilized</SelectItem>
-            <SelectItem value="serving">Serving</SelectItem>
-            <SelectItem value="completed">Completed</SelectItem>
-            <SelectItem value="exempted">Exempted</SelectItem>
-          </SelectContent>
-        </Select>
-        <Select value={stateFilter} onValueChange={setStateFilter}>
-          <SelectTrigger className="w-[150px]">
-            <SelectValue placeholder="All States" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All States</SelectItem>
-            {nigerianStates.map((state) => (
-              <SelectItem key={state} value={state}>
-                {state}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <Select value={batchYearFilter} onValueChange={setBatchYearFilter}>
-          <SelectTrigger className="w-[120px]">
-            <SelectValue placeholder="Batch Year" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Years</SelectItem>
-            {batchYears.map((year) => (
-              <SelectItem key={year} value={year}>
-                {year}
+            <SelectItem value="all">All Departments</SelectItem>
+            {departments.map((dept) => (
+              <SelectItem key={dept} value={dept}>
+                {dept}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
       </div>
 
-      {/* NYSC Records Table */}
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Student</TableHead>
-              <TableHead>Department</TableHead>
-              <TableHead>Call-up Number</TableHead>
-              <TableHead>Primary Assignment</TableHead>
-              <TableHead>State</TableHead>
-              <TableHead>Batch Year</TableHead>
-              <TableHead>Service Year</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="w-[70px]">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredRecords.length === 0 ? (
-              <TableRow>
-                <TableCell
-                  colSpan={9}
-                  className="text-center text-muted-foreground"
-                >
-                  No NYSC records found
-                </TableCell>
-              </TableRow>
-            ) : (
-              filteredRecords.map((record) => (
-                <TableRow key={record.id}>
-                  <TableCell>
-                    <div>
-                      <div className="font-medium">{record.studentName}</div>
-                      <div className="text-sm text-muted-foreground">
-                        {record.studentId}
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>{record.department}</TableCell>
-                  <TableCell className="font-mono">
-                    {record.callUpNumber}
-                  </TableCell>
-                  <TableCell>{record.primaryAssignment}</TableCell>
-                  <TableCell>{record.state}</TableCell>
-                  <TableCell>{record.batchYear}</TableCell>
-                  <TableCell>{record.serviceYear}</TableCell>
-                  <TableCell>{getStatusBadge(record.status)}</TableCell>
-                  <TableCell>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                          <span className="sr-only">Open menu</span>
-                          <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem>
-                          <Eye className="mr-2 h-4 w-4" />
-                          View Details
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <Download className="mr-2 h-4 w-4" />
-                          Download Certificate
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-      </div>
+      {/* Eligibility Tabs */}
+      <Tabs defaultValue="eligible" className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="eligible">
+            Eligible Students ({filteredEligibleStudents.length})
+          </TabsTrigger>
+          <TabsTrigger value="not-eligible">
+            Not Eligible Students ({filteredNotEligibleStudents.length})
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="eligible" className="space-y-4">
+          <div className="rounded-lg border p-4 bg-green-50">
+            <h3 className="font-semibold text-green-800 mb-2">
+              NYSC Eligibility Criteria
+            </h3>
+            <ul className="text-sm text-green-700 space-y-1">
+              <li>• Nigerian citizen</li>
+              <li>• Age 30 years and below at graduation</li>
+              <li>• Minimum CGPA of 2.5</li>
+              <li>• Completed degree program</li>
+            </ul>
+          </div>
+          <StudentTable students={filteredEligibleStudents} />
+        </TabsContent>
+
+        <TabsContent value="not-eligible" className="space-y-4">
+          <div className="rounded-lg border p-4 bg-red-50">
+            <h3 className="font-semibold text-red-800 mb-2">
+              Common Ineligibility Reasons
+            </h3>
+            <ul className="text-sm text-red-700 space-y-1">
+              <li>• Above age limit (over 30 years)</li>
+              <li>• CGPA below minimum requirement (below 2.5)</li>
+              <li>• Non-Nigerian citizenship</li>
+              <li>• Medical exemption</li>
+            </ul>
+          </div>
+          <StudentTable
+            students={filteredNotEligibleStudents}
+            showEligibilityReason={true}
+          />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
