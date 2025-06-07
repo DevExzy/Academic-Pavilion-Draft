@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
 import { StudentTabs } from "@/components/students/StudentTabs";
 import { mockStudents } from "@/lib/mock-data";
 import { Student } from "@/types";
