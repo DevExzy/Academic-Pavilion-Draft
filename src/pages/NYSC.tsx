@@ -24,7 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { MoreHorizontal, Search, Eye, Download, Plus } from "lucide-react";
+import { MoreHorizontal, Search, Eye, Download } from "lucide-react";
 import { mockNYSCRecords, departments } from "@/lib/mock-data";
 import { NYSCRecord } from "@/types";
 
