@@ -124,17 +124,11 @@ export default function NYSC() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">NYSC Records</h1>
-          <p className="text-muted-foreground">
-            Manage National Youth Service Corps records
-          </p>
-        </div>
-        <Button>
-          <Plus className="mr-2 h-4 w-4" />
-          Add NYSC Record
-        </Button>
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight">NYSC Records</h1>
+        <p className="text-muted-foreground">
+          Manage National Youth Service Corps records
+        </p>
       </div>
 
       {/* Stats Cards */}
