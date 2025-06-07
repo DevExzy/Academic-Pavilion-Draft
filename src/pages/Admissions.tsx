@@ -48,8 +48,9 @@ export default function Admissions() {
   const [departmentFilter, setDepartmentFilter] = useState<string>("all");
 
   const filteredAdmissions = admissions.filter((admission) => {
-    // Only show pending applications
-    const isPending = admission.status === "pending";
+    // Only show accepted or rejected applications (not pending)
+    const isProcessed =
+      admission.status === "admitted" || admission.status === "rejected";
 
     const matchesSearch =
       `${admission.firstName} ${admission.lastName} ${admission.applicationNumber} ${admission.email}`
@@ -61,7 +62,7 @@ export default function Admissions() {
       departmentFilter === "all" ||
       admission.department === departmentFilter;
 
-    return isPending && matchesSearch && matchesDepartment;
+    return isProcessed && matchesSearch && matchesDepartment;
   });
   const handleApprove = (admission: Admission) => {
     const updatedAdmissions = admissions.map((a) =>
