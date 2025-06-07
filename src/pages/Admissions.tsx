@@ -107,26 +107,6 @@ export default function Admissions() {
         </Button>
       </div>
 
-      {/* Stats Cards */}
-      <div className="grid gap-4 md:grid-cols-3">
-        <div className="rounded-lg border p-4">
-          <div className="text-2xl font-bold text-orange-600">
-            {pendingCount}
-          </div>
-          <p className="text-sm text-muted-foreground">Pending Applications</p>
-        </div>
-        <div className="rounded-lg border p-4">
-          <div className="text-2xl font-bold text-green-600">
-            {admittedCount}
-          </div>
-          <p className="text-sm text-muted-foreground">Admitted Students</p>
-        </div>
-        <div className="rounded-lg border p-4">
-          <div className="text-2xl font-bold text-red-600">{rejectedCount}</div>
-          <p className="text-sm text-muted-foreground">Rejected Applications</p>
-        </div>
-      </div>
-
       {/* Filters */}
       <div className="flex items-center gap-4">
         <div className="relative flex-1 max-w-sm">
