@@ -89,7 +89,7 @@ export default function Admissions() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Admissions</h1>
           <p className="text-muted-foreground">
-            Manage student admission applications
+            Review and process pending admission applications
           </p>
         </div>
         <Button>
