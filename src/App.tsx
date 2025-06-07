@@ -10,6 +10,7 @@ import Results from "./pages/Results";
 import Admissions from "./pages/Admissions";
 import NYSC from "./pages/NYSC";
 import Upload from "./pages/Upload";
+import ActivityLog from "./pages/ActivityLog";
 import AccountSettings from "./pages/AccountSettings";
 import ManageRoles from "./pages/ManageRoles";
 import NotFound from "./pages/NotFound";
@@ -68,6 +69,14 @@ const App = () => (
             element={
               <DashboardLayout>
                 <Upload />
+              </DashboardLayout>
+            }
+          />
+          <Route
+            path="/activity-log"
+            element={
+              <DashboardLayout>
+                <ActivityLog />
               </DashboardLayout>
             }
           />
