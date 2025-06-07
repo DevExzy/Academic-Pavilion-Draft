@@ -132,7 +132,7 @@ export default function Admissions() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Application #</TableHead>
+              <TableHead>Matric Number</TableHead>
               <TableHead>Applicant</TableHead>
               <TableHead>Department</TableHead>
               <TableHead>Program</TableHead>
