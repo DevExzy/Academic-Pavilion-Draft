@@ -9,7 +9,7 @@ import Students from "./pages/Students";
 import Results from "./pages/Results";
 import Admissions from "./pages/Admissions";
 import NYSC from "./pages/NYSC";
-import AcademicScholar from "./pages/AcademicScholar";
+import Upload from "./pages/Upload";
 import AccountSettings from "./pages/AccountSettings";
 import ManageRoles from "./pages/ManageRoles";
 import NotFound from "./pages/NotFound";
@@ -64,10 +64,10 @@ const App = () => (
             }
           />
           <Route
-            path="/academic-scholar"
+            path="/upload"
             element={
               <DashboardLayout>
-                <AcademicScholar />
+                <Upload />
               </DashboardLayout>
             }
           />
