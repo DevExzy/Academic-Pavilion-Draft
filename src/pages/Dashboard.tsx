@@ -53,12 +53,6 @@ export default function Dashboard() {
           icon={AlertTriangle}
           trend={{ value: -5, isPositive: false }}
         />
-        <StatsCard
-          title="Pending Admissions"
-          value={stats.pendingAdmissions}
-          description="Applications awaiting review"
-          icon={UserPlus}
-        />
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
