@@ -87,6 +87,11 @@ const navigation = [
     icon: Upload,
   },
   {
+    title: "Activity Log",
+    url: "/activity-log",
+    icon: FileText,
+  },
+  {
     title: "Account Settings",
     url: "/settings",
     icon: Settings,
