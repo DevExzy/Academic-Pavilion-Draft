@@ -45,7 +45,6 @@ const getStatusBadge = (status: Admission["status"]) => {
 export default function Admissions() {
   const [admissions, setAdmissions] = useState<Admission[]>(mockAdmissions);
   const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState<string>("all");
   const [departmentFilter, setDepartmentFilter] = useState<string>("all");
 
   const filteredAdmissions = admissions.filter((admission) => {
@@ -83,14 +82,6 @@ export default function Admissions() {
     );
     setAdmissions(updatedAdmissions);
   };
-
-  const pendingCount = admissions.filter((a) => a.status === "pending").length;
-  const admittedCount = admissions.filter(
-    (a) => a.status === "admitted",
-  ).length;
-  const rejectedCount = admissions.filter(
-    (a) => a.status === "rejected",
-  ).length;
 
   return (
     <div className="space-y-6">
